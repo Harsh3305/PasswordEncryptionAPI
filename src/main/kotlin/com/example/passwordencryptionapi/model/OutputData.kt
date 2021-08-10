@@ -1,3 +1,3 @@
 package com.example.passwordencryptionapi.model
 
-data class OutputData (val encryptedMessage : String, val password : String)
+data class OutputData (val encryptedMessage : ByteArray, val password : String)

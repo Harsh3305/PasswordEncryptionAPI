@@ -12,12 +12,17 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping
 class EncryptionController(private val encryptionService: EncryptionService) {
     @PostMapping("/encrypt")
-    fun encryptMessage (@RequestParam inputData: InputData) {
+    fun encryptMessage (inputData: InputData) : OutputData{
+        val byteArray: ByteArray =  encryptionService.encryptMessage(inputData)
 
+        val encryptedMessage: OutputData = OutputData(encryptedMessage = byteArray, password = inputData.password)
+        return encryptedMessage
     }
     @PostMapping("/decrypt")
-    fun decryptMessage (@RequestParam outputData: OutputData) {
-
+    fun decryptMessage (outputData: OutputData) : InputData {
+        val decryptedMessage : String =  encryptionService.decryptMessage(outputData)
+        val decryptedOutput : InputData = InputData(decryptedMessage, outputData.password)
+        return decryptedOutput
     }
 
 }
